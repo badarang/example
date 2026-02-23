@@ -49,6 +49,7 @@ namespace Moleio.Core
             playerId = nextPlayerId++;
             headSegment.OwnerId = playerId;
             headSegment.IsHead = true;
+            headSegment.ApplyVisual();
             bodyTrail.SetOwner(playerId);
 
             currentDash = maxDash;

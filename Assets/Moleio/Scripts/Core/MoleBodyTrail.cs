@@ -9,11 +9,13 @@ namespace Moleio.Core
         [SerializeField] private Transform segmentRoot;
         [SerializeField] private float segmentSpacing = 0.35f;
         [SerializeField] private float followSpeed = 16f;
+        [SerializeField] private float minPointDistance = 0.08f;
         [SerializeField] private int initialSegments = 8;
 
         private readonly List<Transform> segments = new();
         private readonly List<Vector3> pathPoints = new();
         private int ownerId;
+        private bool ownsSegmentRoot;
 
         public int SegmentCount => segments.Count;
 
@@ -21,7 +23,11 @@ namespace Moleio.Core
         {
             if (segmentRoot == null)
             {
-                segmentRoot = transform;
+                Transform parent = transform.parent;
+                GameObject root = new GameObject($"{name}_Segments");
+                segmentRoot = root.transform;
+                segmentRoot.SetParent(parent, true);
+                ownsSegmentRoot = true;
             }
 
             pathPoints.Clear();
@@ -36,7 +42,21 @@ namespace Moleio.Core
                 return;
             }
 
-            pathPoints.Insert(0, transform.position);
+            Vector3 headPos = transform.position;
+            if (pathPoints.Count == 0)
+            {
+                pathPoints.Add(headPos);
+            }
+            else
+            {
+                float sqrDist = (pathPoints[0] - headPos).sqrMagnitude;
+                float minSqr = minPointDistance * minPointDistance;
+                if (sqrDist >= minSqr)
+                {
+                    pathPoints.Insert(0, headPos);
+                }
+            }
+
             float maxDistance = Mathf.Max(segmentSpacing * (segments.Count + 2), 0.1f);
             TrimPath(maxDistance);
 
@@ -69,6 +89,8 @@ namespace Moleio.Core
         public void RebuildInitialSegments()
         {
             ClearSegments();
+            pathPoints.Clear();
+            pathPoints.Add(transform.position);
             for (int i = 0; i < initialSegments; i++)
             {
                 AddSegment();
@@ -102,6 +124,14 @@ namespace Moleio.Core
             }
 
             segments.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            if (ownsSegmentRoot && segmentRoot != null)
+            {
+                Destroy(segmentRoot.gameObject);
+            }
         }
 
         private void AddSegment()
@@ -141,6 +171,7 @@ namespace Moleio.Core
 
             marker.OwnerId = ownerId;
             marker.IsHead = false;
+            marker.ApplyVisual();
         }
 
         private void TrimPath(float maxDistance)
