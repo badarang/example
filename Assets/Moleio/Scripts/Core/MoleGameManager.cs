@@ -14,6 +14,7 @@ namespace Moleio.Core
         [Header("Prefabs")]
         [SerializeField] private MolePlayerController playerPrefab;
         [SerializeField] private MoleFood foodPrefab;
+        [SerializeField] private bool autoSpawnLocalPlayer = true;
 
         [Header("Food")]
         [SerializeField] private int initialFoodCount = 120;
@@ -35,7 +36,7 @@ namespace Moleio.Core
 
         private void Start()
         {
-            if (playerPrefab != null && FindAnyObjectByType<MolePlayerController>() == null)
+            if (autoSpawnLocalPlayer && playerPrefab != null && FindAnyObjectByType<MolePlayerController>() == null)
             {
                 Instantiate(playerPrefab, GetRandomSpawnPoint(), Quaternion.identity);
             }

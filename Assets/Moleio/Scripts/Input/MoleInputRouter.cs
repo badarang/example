@@ -5,6 +5,9 @@ namespace Moleio.InputSystem
 {
     public sealed class MoleInputRouter : MonoBehaviour, IMoleInput
     {
+        public static Vector2 LocalMove { get; private set; }
+        public static bool LocalDashHeld { get; private set; }
+
         [SerializeField] private MoleVirtualJoystick joystick;
         [SerializeField] private MoleDashButton dashButton;
         [SerializeField] private bool enableKeyboardFallback = true;
@@ -39,6 +42,12 @@ namespace Moleio.InputSystem
 
                 return enableKeyboardFallback && Input.GetKey(KeyCode.Space);
             }
+        }
+
+        private void LateUpdate()
+        {
+            LocalMove = Move;
+            LocalDashHeld = DashHeld;
         }
     }
 }

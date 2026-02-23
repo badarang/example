@@ -184,8 +184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldSize: {x: 26, y: 26}
   spawnPoints: []
-  playerPrefab: {fileID: 0}
-  foodPrefab: {fileID: 0}
+  playerPrefab: {fileID: 2717877837539285857, guid: ff0258be7d9f7eb45914fce704310594, type: 3}
+  foodPrefab: {fileID: 7517363569780150798, guid: 187439b01529f7d43b9cb1a62afa64cc, type: 3}
+  autoSpawnLocalPlayer: 0
   initialFoodCount: 120
   maxFoodCount: 160
   deathDropStep: 2
@@ -266,6 +267,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1426820075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426820077}
+  - component: {fileID: 1426820076}
+  m_Layer: 0
+  m_Name: MoleFusionBootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1426820076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426820075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea066ac975002a34b9549a81570c474e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sessionName: moleio-room
+  maxPlayers: 10
+  gameMode: 6
+  runnerPrefab: {fileID: 2266314396973628010, guid: e5429491c4e145445b2fec738b9928ad, type: 3}
+  playerPrefab: {fileID: 2940192551213110946, guid: ff0258be7d9f7eb45914fce704310594, type: 3}
+--- !u!4 &1426820077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426820075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1674425803
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,3 +356,4 @@ SceneRoots:
   - {fileID: 55808047}
   - {fileID: 1332516366}
   - {fileID: 1674425804}
+  - {fileID: 1426820077}
